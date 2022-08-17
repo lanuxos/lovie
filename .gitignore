@@ -1,3 +1,6 @@
 # Lovie project .gitignore
 .vscode/
 test/
+style/
+lovie.xlsx
+lovie.txt
