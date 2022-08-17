@@ -2,7 +2,10 @@
 Movie database develop with multiple web frameworks
 
 ## branch
-`git clone --branch <branchName> --single-branch https://github.com/lanuxos/lovie.git`
+```
+git clone --branch <branchName> --single-branch https://github.com/lanuxos/lovie.git
+git push --set-upstream origin <branchName>
+```
 ### django
 - django 4.1
 - bootstrap 5.2
