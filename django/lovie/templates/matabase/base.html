@@ -1,0 +1,292 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/css.css' %}">
+    <title>Lovie</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop"
+                aria-controls="offcanvasTop" data-toggle="tooltip" title="MENU">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="nav-link link-light" aria-current="page" href="{% url 'homePage' %}" data-toggle="tooltip"
+                title="Back to the beginning...">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-house-heart" viewBox="0 0 16 16">
+                    <path d="M8 6.982C9.664 5.309 13.825 8.236 8 12 2.175 8.236 6.336 5.309 8 6.982Z" />
+                    <path
+                        d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.707L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.646a.5.5 0 0 0 .708-.707L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+                </svg>
+            </a>
+            <img src="{% static '4321.gif' %}" alt="Countdown" width="40" height="40">
+            <a class="nav-link link-light" href="{% url 'dashboardPage' %}" data-toggle="tooltip" title="Show to statistics">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-motherboard" viewBox="0 0 16 16">
+                    <path
+                        d="M11.5 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5Zm2 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5Zm-10 8a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-6Zm0 2a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-6ZM5 3a1 1 0 0 0-1 1h-.5a.5.5 0 0 0 0 1H4v1h-.5a.5.5 0 0 0 0 1H4a1 1 0 0 0 1 1v.5a.5.5 0 0 0 1 0V8h1v.5a.5.5 0 0 0 1 0V8a1 1 0 0 0 1-1h.5a.5.5 0 0 0 0-1H9V5h.5a.5.5 0 0 0 0-1H9a1 1 0 0 0-1-1v-.5a.5.5 0 0 0-1 0V3H6v-.5a.5.5 0 0 0-1 0V3Zm0 1h3v3H5V4Zm6.5 7a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2Z" />
+                    <path
+                        d="M1 2a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-2H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 9H1V8H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6H1V5H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 2H1Zm1 11a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v11Z" />
+                </svg>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop"
+                aria-controls="offcanvasTop" data-toggle="tooltip" title="MENU">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+    <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+        <div class="offcanvas-header">
+            <h6 class="offcanvas-title nav nav-brand {% if not request.user.is_authenticated %} d-none d-md-block{% endif %}" id="offcanvasTopLabel"><span
+                    style="color: #8785a2;"><strong>L<em>ovie</em></strong></span>
+            </h6>
+            <a class="nav-link link-dark" aria-current="page" href="{% url 'homePage' %}" data-toggle="tooltip"
+                title="Back to the beginning...">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-house-heart" viewBox="0 0 16 16">
+                    <path d="M8 6.982C9.664 5.309 13.825 8.236 8 12 2.175 8.236 6.336 5.309 8 6.982Z" />
+                    <path
+                        d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.707L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.646a.5.5 0 0 0 .708-.707L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+                </svg>
+                Home
+            </a>
+            <h6 class="offcanvas-title nav-brand" id="offcanvasTopLabel"> | </h6>
+            <a class="nav-link link-dark" href="{% url 'dashboardPage' %}" data-toggle="tooltip" title="Show to statistics">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-motherboard" viewBox="0 0 16 16">
+                    <path
+                        d="M11.5 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5Zm2 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5Zm-10 8a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-6Zm0 2a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-6ZM5 3a1 1 0 0 0-1 1h-.5a.5.5 0 0 0 0 1H4v1h-.5a.5.5 0 0 0 0 1H4a1 1 0 0 0 1 1v.5a.5.5 0 0 0 1 0V8h1v.5a.5.5 0 0 0 1 0V8a1 1 0 0 0 1-1h.5a.5.5 0 0 0 0-1H9V5h.5a.5.5 0 0 0 0-1H9a1 1 0 0 0-1-1v-.5a.5.5 0 0 0-1 0V3H6v-.5a.5.5 0 0 0-1 0V3Zm0 1h3v3H5V4Zm6.5 7a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2Z" />
+                    <path
+                        d="M1 2a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-2H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 9H1V8H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6H1V5H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 2H1Zm1 11a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v11Z" />
+                </svg>
+                Dashboard
+            </a>
+            {% if not request.user.is_authenticated %}
+            <h6 class="offcanvas-title nav-brand" id="offcanvasTopLabel"> | </h6>
+            <a class="nav-link link-dark" href="{% url 'userPage' %}" data-toggle="tooltip" title="Show to statistics">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-person-plus" viewBox="0 0 16 16">
+                    <path
+                        d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                    <path fill-rule="evenodd"
+                        d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
+                </svg>
+                Register
+            </a>
+            {% endif %}
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        {% if request.user.is_authenticated %}
+                        <div class="row justify-content-center">
+                            <div class="col-6">
+                                <p class="text text-end">Hi <em>{{ user.get_username }}[{% if request.user.is_staff %}Staff{% else %}User{% endif %}]</em></p>
+                            </div>
+                            <div class="col-4">
+                                <a href="{% url 'logout' %}" class="btn btn-sm btn-outline-danger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                                        <path fill-rule="evenodd"
+                                            d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                                    </svg>
+                                    Logout
+                                </a>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="row justify-content-center">
+                            <div class="col col-12 col-sm-12 col-md-4">
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Username"
+                                            aria-label="Username" aria-describedby="login" name="username" id="username">
+                                        <input type="password" class="form-control" placeholder="Password"
+                                            aria-label="Password" aria-describedby="login" name="password" id="password">
+                                        <button class="btn btn-outline-secondary" type="submit"
+                                            id="loginButton" name="loginButton">Login</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row my-3">
+            <div class="col">
+                {% block content %}
+                {% endblock content %}
+            </div>
+        </div>
+    </div>
+    <footer class="py-4 py-md-5 mt-5 bg-dark text text-info">
+        <div class="container py-4 py-md-5 px-4 px-md-3">
+            <div class="row">
+                <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3 mb-3">
+                    <div class="accordion accordion-flush" id="accordionExample">
+                        <div class="accordion-item bg bg-dark">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button bg bg-dark text text-white" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+                                    aria-controls="collapseOne">
+                                    About
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body bg bg-dark text text-muted">
+                                    <strong>Lovie</strong> is a small movie database project developed by <code>La's
+                                        group</code>.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item bg bg-dark">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed bg bg-dark text text-white" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
+                                    aria-controls="collapseTwo">
+                                    License
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body bg bg-dark text text-muted">
+                                    Copyright (c) 2022-2222 La
+
+                                    Permission is hereby granted, free of charge, to any person obtaining
+                                    a copy of this software and associated documentation files (the
+                                    "Software"), to deal in the Software without restriction, including
+                                    without limitation the rights to use, copy, modify, merge, publish,
+                                    distribute, sublicense, and/or sell copies of the Software, and to
+                                    permit persons to whom the Software is furnished to do so, subject to
+                                    the following conditions:
+
+                                    The above copyright notice and this permission notice shall be
+                                    included in all copies or substantial portions of the Software.
+
+                                    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+                                    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+                                    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+                                    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+                                    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+                                    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+                                    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item bg bg-dark">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed bg bg-dark text text-white" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
+                                    aria-controls="collapseThree">
+                                    Version
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body bg bg-dark text text-muted">
+                                    This is <i>pre-alpha</i> version.
+                                    0.0.0.0
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-sm-12 col-md-6 col-lg-8 col-xl-9 col-xxl-9">
+                    <div class="row justify-content-center">
+                        <div class="col col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mb-3">
+                            <h5>Stack</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <a class="link link-secondary" href="https://www.djangoproject.com/" target="_blank">Django</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="link link-secondary" href="https://getbootstrap.com/" target="_blank">Bootstrap5</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="link link-secondary" href="https://www.sqlite.org/index.html" target="_blank">Sqlite3</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="link link-secondary" href="https://www.digitalocean.com/" target="_blank">Digital
+                                        Ocean</a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="link link-secondary" href="https://ubuntu.com/download/server" target="_blank">Ubuntu
+                                        Server</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mb-3">
+                            <h5>Links</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <a href="https://lanuxos.github.io/" class="link link-secondary" target="_blank">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
+                                            <path
+                                                d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z" />
+                                            <path
+                                                d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z" />
+                                        </svg>
+                                        lanuxos
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mb-3">
+                            <h5>Developer</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <a href="mailto:lanuxos@gmail.com" class="link link-secondary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                                            <path
+                                                d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
+                                        </svg>
+                                        Email
+                                    </a>
+                                </li>
+                                <li class="mb-2">
+                                    <a href="https://github.com/lanuxos" class="link link-secondary" target="_blank">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                                            <path
+                                                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                                        </svg>
+                                        Github
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+</body>
+
+</html>
