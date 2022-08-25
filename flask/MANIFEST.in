@@ -1,0 +1,4 @@
+include lovie/schema.sql
+graft lovie/static
+graft lovie/templates
+global-exclude *.pyc
