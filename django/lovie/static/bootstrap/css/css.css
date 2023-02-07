@@ -1,0 +1,9 @@
+body {
+    background-color: #EEEEEE;
+}
+table a {
+    color: #8785a2;
+}
+table a:hover {
+    color: #FFE2E2;
+}

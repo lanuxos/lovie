@@ -20,5 +20,7 @@ from .views import *
 urlpatterns = [
     path('home/', MatabaseHome, name='homePage'),
     path('dashboard/', Dashboard, name='dashboardPage'),
-    path('user/', Register, name='userPage')
+    path('user/', Register, name='userPage'),
+    path('update/<int:id>/', MatabaseUpdate, name='updatePage'),
+    path('delete/<int:id>/', MatabaseDelete, name='deletePage'),
 ]

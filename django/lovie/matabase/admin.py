@@ -13,3 +13,4 @@ class MatabaseAdmin(admin.ModelAdmin):
 
 admin.site.register(Matabase, MatabaseAdmin)
 admin.site.register(Mag)
+admin.site.register(Footer)
