@@ -6,7 +6,7 @@
 {% endfor %}
 {% endif %}
 <div class="row justify-content-center">
-    <div class="col col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6 col-xxl-6">
+    <div class="col-sm-12 col-md-10 col-lg-6">
         <form action="" method="post">
             {% csrf_token %}
             <div class="input-group my-1">
@@ -15,11 +15,7 @@
                     name="searchField" {% if not messages %}autofocus{% endif %}>
                 <button class="btn btn-outline-secondary" type="submit" id="searchButton" name="searchButton"
                     data-toggle="tooltip" title="Search through record(s)">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-search" viewBox="0 0 16 16">
-                        <path
-                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                    </svg>
+                    <i class="bi bi-search"></i>
                     Search
                 </button>
             </div>
@@ -30,44 +26,38 @@
 <form action="" method="post">
     {% csrf_token %}
     <div class="row justify-content-center">
-        <div class="col col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 col-xxl-5 mb-1">
+        <div class="col-sm-12 col-md-6 col-lg-5 mb-1">
             <input type="text" class="form-control text text-center my-1" placeholder="Title" aria-label="Title"
                 aria-describedby="addButton" name="titleField" id="titleField" {% if messages %}autofocus{% endif %}>
         </div>
-        <div class="col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mb-1">
+        <div class="col-sm-3 col-md-6 col-lg-2 mb-1">
             <input type="text" class="form-control text text-center my-1" placeholder="Year" aria-label="Year"
                 aria-describedby="addButton" name="yearField" id="yearField">
         </div>
-        <div class="col col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mb-1">
+        <div class="col-sm-6 col-md-6 col-lg-3 mb-1">
             <select class="form-select my-1" aria-label="status" name="statusField" id="statusField">
                 <option value="d" selected>Download</option>
                 <option value="w">Watched</option>
                 <option value="r">Removed</option>
             </select>
         </div>
-        <div class="col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mb-1">
+        <div class="col-sm-3 col-md-6 col-lg-2 mb-1">
             <button class="btn btn-outline-secondary form-control my-1" type="submit" name="addButton" id="addButton"
                 data-toggle="tooltip" title="Add new record">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-plus-square" viewBox="0 0 16 16">
-                    <path
-                        d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-                    <path
-                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                </svg>
+                <i class="bi bi-plus-square"></i>
                 Add
             </button>
         </div>
     </div>
     <div class="row justify-content-center my-1">
         <div class="col">
-            <div class="accordion accordion-flush" id="accordionExample">
+            <div class="accordion accordion-flush" id="accordionTag">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button text text-muted text-center" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             <div class="row">
-                                <div class="col col-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 col-xxl-2">
+                                <div class="col-md-4 col-lg-2">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="checkbox" id="untag" value="untag" checked>
                                         <label class="form-check-label" for="untag">untag</label>
@@ -77,11 +67,11 @@
                         </button>
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                        data-bs-parent="#accordionExample">
+                        data-bs-parent="#accordionTag">
                         <div class="accordion-body text text-muted">
                             <div class="row">
                                 {% for gen in genres %}
-                                <div class="col col-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 col-xxl-2">
+                                <div class="col-md-4 col-lg-2">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="checkbox" id="{{ gen }}" value="{{ gen }}"
                                             name="{{ gen }}">
@@ -103,58 +93,36 @@
         <tr class="align-middle">
             <td colspan="4">
                 <div class="row">
-                    <div class="col col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 my-1">
+                    <div class="col-sm-6 col-md-3 my-1">
                         <a href="{% url 'homePage' %}?moviesPar=all"
                             class="btn btn-sm btn-outline-secondary form-control form-control-sm" data-toggle="tooltip"
                             title="Show all record(s)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-check-all" viewBox="0 0 16 16">
-                                <path
-                                    d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
-                            </svg>
-                            All
+                            <i class="bi bi-check-all"></i>
+                            All <span class="badge text-bg-secondary">{{ count.all }}</span>
                         </a>
                     </div>
-                    <div class="col col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 my-1">
+                    <div class="col-sm-6 col-md-3 my-1">
                         <a href="{% url 'homePage' %}?moviesPar=watched"
                             class="btn btn-sm btn-outline-secondary form-control form-control-sm" data-toggle="tooltip"
                             title="Show only watched record(s)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-eye" viewBox="0 0 16 16">
-                                <path
-                                    d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
-                                <path
-                                    d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
-                            </svg>
-                            Watched
+                            <i class="bi bi-eye"></i>
+                            Watched <span class="badge text-bg-secondary">{{ count.watched }}</span>
                         </a>
                     </div>
-                    <div class="col col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 my-1">
+                    <div class="col-sm-6 col-md-3 my-1">
                         <a href="{% url 'homePage' %}?moviesPar=downloaded"
                             class="btn btn-sm btn-outline-secondary form-control form-control-sm" data-toggle="tooltip"
                             title="Show only downloaded record(s)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-cloud-download" viewBox="0 0 16 16">
-                                <path
-                                    d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383z" />
-                                <path
-                                    d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708l3 3z" />
-                            </svg>
-                            Downloaded
+                            <i class="bi bi-cloud-download"></i>
+                            Downloaded <span class="badge text-bg-secondary">{{ count.downloaded }}</span>
                         </a>
                     </div>
-                    <div class="col col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 my-1">
+                    <div class="col-sm-6 col-md-3 my-1">
                         <a href="{% url 'homePage' %}?moviesPar=deleted"
                             class="btn btn-sm btn-outline-secondary form-control form-control-sm" data-toggle="tooltip"
                             title="Show only deleted record(s)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-trash" viewBox="0 0 16 16">
-                                <path
-                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                                <path fill-rule="evenodd"
-                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                            </svg>
-                            Deleted
+                            <i class="bi bi-trash"></i>
+                            Deleted <span class="badge text-bg-secondary">{{ count.deleted }}</span>
                         </a>
                     </div>
                 </div>
@@ -162,41 +130,19 @@
         </tr>
         <tr class="align-middle">
             <th style="width: 40%">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-code-slash" viewBox="0 0 16 16">
-                    <path
-                        d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z" />
-                </svg>
+                <i class="bi bi-code-slash"></i>
                 Name
             </th>
             <th style="width: 30%">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M3 2v4.586l7 7L14.586 9l-7-7H3zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2z" />
-                    <path
-                        d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1v5.086z" />
-                </svg>
+                <i class="bi bi-tags"></i>
                 Tag(s)
             </th>
             <th style="width: 10%">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-calendar-date" viewBox="0 0 16 16">
-                    <path
-                        d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z" />
-                    <path
-                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-                </svg>
+                <i class="bi bi-calendar-date"></i>
                 Year
             </th>
             <th style="width: 20%">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-info-square" viewBox="0 0 16 16">
-                    <path
-                        d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-                    <path
-                        d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                </svg>
+                <i class="bi bi-info-square"></i>
                 Status
             </th>
         </tr>
@@ -206,8 +152,30 @@
         {% for m in movies %}
         <tr class="text text-end align-middle">
             <td class="text text-start">
-                <a href="https://www.google.com/search?q={{ m.title }}" class="" data-toggle="tooltip"
-                    title="Search with Google" target="_blank">{{ m.title }}</a>
+                <div class="row">
+                    <div class="{% if request.user.is_staff %}col-9{% else %}col{% endif %}">
+                        <a href="https://www.google.com/search?q={{ m.title }}" class="" data-toggle="tooltip" title="Search with Google"
+                            target="_blank" class="link-secondary">
+                            {{ m.title }}
+                        </a>
+                    </div>
+
+                    {% if request.user.is_staff %}
+
+                    <div class="col-1">
+                        <a href="{% url 'updatePage' id=m.id %}" class="" data-toggle="tooltip" title="Edit Record">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                    </div>
+                    <div class="col-1">
+                        <a href="{% url 'deletePage' id=m.id %}" class="" data-toggle="tooltip" title="Delete Record" onclick="return confirm('Do you really want to DELETE {{m.title}} from database?')">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
+                    
+                    {% endif %}
+
+                </div>
             </td>
             <td>                 
                         
@@ -230,94 +198,58 @@
             <td>
                 {% if request.user.is_staff %}
                 <div class="row">
-                    <div class="col col-12 col-sm-12 col-md-4 my-1">
+                    <div class="col-sm-12 col-md-4 my-1">
                         <a href="{% url 'homePage' %}?status=downloaded&id={{ m.id }}"
-                            class="btn btn-sm btn-outline-secondary form-control form-control-sm {% if m.status == 'd' %} disabled {% endif %}"
+                            class="btn btn-sm form-control form-control-sm {% if m.status == 'd' %}btn-secondary disabled{% else %} btn-outline-secondary{% endif %}"
                             onclick="return confirm('Are you sure to change the status to Downloaded?')"
                             data-toggle="tooltip" title="Change record status to DOWNLOADED">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-cloud-download" viewBox="0 0 16 16">
-                                <path
-                                    d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383z" />
-                                <path
-                                    d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708l3 3z" />
-                            </svg>
+                            <i class="bi bi-cloud-download"></i>
                         </a>
                     </div>
-                    <div class="col col-12 col-sm-12 col-md-4 my-1">
+                    <div class="col-sm-12 col-md-4 my-1">
                         <a href="{% url 'homePage' %}?status=watched&id={{ m.id }}"
-                            class="btn btn-sm btn-outline-secondary form-control form-control-sm {% if m.status == 'w' %} disabled {% endif %}"
+                            class="btn btn-sm form-control form-control-sm {% if m.status == 'w' %}btn-secondary disabled{% else %} btn-outline-secondary{% endif %}"
                             data-toggle="tooltip" title="Change record status to WATCHED">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-eye" viewBox="0 0 16 16">
-                                <path
-                                    d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
-                                <path
-                                    d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
-                            </svg>
+                            <i class="bi bi-eye"></i>
                         </a>
                     </div>
-                    <div class="col col-12 col-sm-12 col-md-4 my-1">
+                    <div class="col-sm-12 col-md-4 my-1">
                         <a href="{% url 'homePage' %}?status=deleted&id={{ m.id }}"
-                            class="btn btn-sm btn-outline-secondary form-control form-control-sm {% if m.status == 'r' %} disabled {% endif %}"
+                            class="btn btn-sm form-control form-control-sm {% if m.status == 'r' %}btn-secondary disabled{% else %} btn-outline-secondary{% endif %}"
                             onclick="return confirm('Are you sure, to change the status to Deleted?')"
                             data-toggle="tooltip" title="Change record status to DELETED">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-trash" viewBox="0 0 16 16">
-                                <path
-                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                                <path fill-rule="evenodd"
-                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                            </svg>
+                            <i class="bi bi-trash"></i>
                         </a>
                     </div>
                 </div>
                 {% else %}
                 <div class="row">
                     {% if m.status == 'd' %}
-                    <div class="col col-12 col-sm-12 col-md-12 my-1">
+                    <div class="col-md-12 my-1">
                         <a href="{% url 'homePage' %}?status=downloaded&id={{ m.id }}"
                             class="btn btn-sm btn-outline-secondary form-control form-control-sm disabled"
                             onclick="return confirm('Are you sure to change the status to Downloaded?')"
                             data-toggle="tooltip" title="Change record status to DOWNLOADED">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-cloud-download" viewBox="0 0 16 16">
-                                <path
-                                    d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383z" />
-                                <path
-                                    d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708l3 3z" />
-                            </svg>
+                            <i class="bi bi-cloud-download"></i>
                             Downloaded
                         </a>
                     </div>
                     {% elif m.status == 'w' %}
-                    <div class="col col-12 col-sm-12 col-md-12 my-1">
+                    <div class="col-md-12 my-1">
                         <a href="{% url 'homePage' %}?status=watched&id={{ m.id }}"
                             class="btn btn-sm btn-outline-secondary form-control form-control-sm disabled"
                             data-toggle="tooltip" title="Change record status to WATCHED" disabled>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-eye" viewBox="0 0 16 16">
-                                <path
-                                    d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
-                                <path
-                                    d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
-                            </svg>
+                            <i class="bi bi-eye"></i>
                             Watched
                         </a>
                     </div>
                     {% else %}
-                    <div class="col col-12 col-sm-12 col-md-12 my-1">
+                    <div class="col-md-12 my-1">
                         <a href="{% url 'homePage' %}?status=deleted&id={{ m.id }}"
                             class="btn btn-sm btn-outline-secondary form-control form-control-sm disabled"
                             onclick="return confirm('Are you sure, to change the status to Deleted?')"
                             data-toggle="tooltip" title="Change record status to DELETED" disabled>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-trash" viewBox="0 0 16 16">
-                                <path
-                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                                <path fill-rule="evenodd"
-                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                            </svg>
+                            <i class="bi bi-trash"></i>
                             Deleted
                         </a>
                     </div>
