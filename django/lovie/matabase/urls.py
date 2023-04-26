@@ -23,4 +23,5 @@ urlpatterns = [
     path('user/', Register, name='userPage'),
     path('update/<int:id>/', MatabaseUpdate, name='updatePage'),
     path('delete/<int:id>/', MatabaseDelete, name='deletePage'),
+    path('api/all/', AllMoviesApi, name='allMoviesApi'),
 ]
