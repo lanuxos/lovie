@@ -4,6 +4,12 @@ from .models import *
 from django.db.models import Q  # Q expression
 from django.contrib.auth.models import User # registering new member to django User models
 from django.contrib.auth import authenticate, login # for logging in
+from django.core.paginator import Paginator # Paginator
+from django.http import JsonResponse
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .serializers import *
 
 
 # db record count
@@ -72,29 +78,49 @@ def Tag(movie):
 
 genres = ['action', 'comedy', 'crime', 'drama', 'horror', 'animated', 'detective', 'romance', 'scienceFiction', 'superNatural', 'war', 'zombie']
 def MatabaseHome(request, moviesPar=None):
-    movies = Matabase.objects.filter(status='d').order_by('-createdDate')[:10]
+    movies = Matabase.objects.filter(status='d').order_by('-createdDate')
+    paginator = Paginator(movies, 10) 
+    page = request.GET.get('page')
+    movies = paginator.get_page(page)
     tags = Tags(movies)
     # movies' fetch by status
     # .get('PARAMETER', None) get PARAMETER OR None to ignore error
     if request.GET.get('moviesPar', None) == 'all': 
+        # pagination
+        # conValPaginator = Paginator(conValForms, 2)
+        # conValPage = request.GET.get('page')
+        # conValForm = conValPaginator.get_page(conValPage)
         movies = Matabase.objects.all()
+        paginator = Paginator(movies, 10) 
+        page = request.GET.get('page')
+        movies = paginator.get_page(page)
+        # show "Page # of TOTAL PAGE"
         Tags(movies)
-        context = {'movies': movies, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer}
+        context = {'movies': movies, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer, 'page': 'all'}
         return render(request, 'matabase/home.html', context=context)
     elif request.GET.get('moviesPar', None) == 'watched':
         movies = Matabase.objects.filter(status='w')
+        paginator = Paginator(movies, 10) 
+        page = request.GET.get('page')
+        movies = paginator.get_page(page)
         Tags(movies)
-        context = {'movies': movies, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer}
+        context = {'movies': movies, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer, 'page': 'watched'}
         return render(request, 'matabase/home.html', context=context)
     elif request.GET.get('moviesPar', None) == 'downloaded':
         movies = Matabase.objects.filter(status='d')
+        paginator = Paginator(movies, 10) 
+        page = request.GET.get('page')
+        movies = paginator.get_page(page)
         Tags(movies)
-        context = {'movies': movies, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer}
+        context = {'movies': movies, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer, 'page': 'downloaded'}
         return render(request, 'matabase/home.html', context=context)
     elif request.GET.get('moviesPar', None) == 'deleted':
         movies = Matabase.objects.filter(status='r')
+        paginator = Paginator(movies, 10) 
+        page = request.GET.get('page')
+        movies = paginator.get_page(page)
         Tags(movies)
-        context = {'movies': movies, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer}
+        context = {'movies': movies, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer, 'page': 'deleted'}
         return render(request, 'matabase/home.html', context=context)
     # status links action
     if request.GET.get('status', None) == 'downloaded':
@@ -254,3 +280,9 @@ def Register(request):
         return redirect('homePage')
     context = {'footer': footer}
     return render(request, 'matabase/register.html', context=context)
+
+# @api_view(['GET'])
+def AllMoviesApi(request):
+    movies = Matabase.objects.all()[:10]
+    serializer = MatabaseSerializer(movies, many=True)
+    return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})

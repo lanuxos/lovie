@@ -9,6 +9,7 @@ git push --set-upstream origin <branchName>
 ### django
 - django 4.1
 - bootstrap 5.2
+- djangorestframework 3.14.0
 ```
 git checkout -b django
 python -m virtualenv venv
@@ -69,9 +70,11 @@ flask --app lovie --debug run
 - Add, update/edit or delete record(s) [only staff permission]
 - Search records
 - List records via status [all, watched, downloaded, deleted]
+- Pagination
 
 ## bugs
 - links/developer info divide, fetch whole and count then divide by 2 ?
+- project initialization error, footer models migration error, footer fixtures
 
 ## Future features
 - Registered could edit tag(s), add pending record(s) and approve via staff
@@ -80,3 +83,4 @@ flask --app lovie --debug run
 - remove [pop()] UNTAG if the len() > 1
 - dataTable on search result for sorting via name/tags/year
 - scrape genes tag from imdb while adding new record, add update btn to fetch on update page
+- API
