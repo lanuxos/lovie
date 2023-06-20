@@ -1,15 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages # alert/flash messages
 from .models import *
-from django.db.models import Q  # Q expression
+from django.db.models import Q # Q expression
 from django.contrib.auth.models import User # registering new member to django User models
 from django.contrib.auth import authenticate, login # for logging in
 from django.core.paginator import Paginator # Paginator
-from django.http import JsonResponse
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from .serializers import *
+
+
 
 
 # db record count
@@ -78,11 +75,11 @@ def Tag(movie):
 
 genres = ['action', 'comedy', 'crime', 'drama', 'horror', 'animated', 'detective', 'romance', 'scienceFiction', 'superNatural', 'war', 'zombie']
 def MatabaseHome(request, moviesPar=None):
-    movies = Matabase.objects.filter(status='d').order_by('-createdDate')
+    movies = Matabase.objects.filter(status='d').order_by('createdDate', 'title')
     paginator = Paginator(movies, 10) 
     page = request.GET.get('page')
     movies = paginator.get_page(page)
-    tags = Tags(movies)
+    # tags = Tags(movies)
     # movies' fetch by status
     # .get('PARAMETER', None) get PARAMETER OR None to ignore error
     if request.GET.get('moviesPar', None) == 'all': 
@@ -95,32 +92,32 @@ def MatabaseHome(request, moviesPar=None):
         page = request.GET.get('page')
         movies = paginator.get_page(page)
         # show "Page # of TOTAL PAGE"
-        Tags(movies)
-        context = {'movies': movies, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer, 'page': 'all'}
+        # Tags(movies)
+        context = {'movies': movies, 'genres': genres, 'count': count, 'footer': footer, 'page': 'all'}
         return render(request, 'matabase/home.html', context=context)
     elif request.GET.get('moviesPar', None) == 'watched':
         movies = Matabase.objects.filter(status='w')
         paginator = Paginator(movies, 10) 
         page = request.GET.get('page')
         movies = paginator.get_page(page)
-        Tags(movies)
-        context = {'movies': movies, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer, 'page': 'watched'}
+        # Tags(movies)
+        context = {'movies': movies, 'genres': genres, 'count': count, 'footer': footer, 'page': 'watched'}
         return render(request, 'matabase/home.html', context=context)
     elif request.GET.get('moviesPar', None) == 'downloaded':
         movies = Matabase.objects.filter(status='d')
         paginator = Paginator(movies, 10) 
         page = request.GET.get('page')
         movies = paginator.get_page(page)
-        Tags(movies)
-        context = {'movies': movies, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer, 'page': 'downloaded'}
+        # Tags(movies)
+        context = {'movies': movies, 'genres': genres, 'count': count, 'footer': footer, 'page': 'downloaded'}
         return render(request, 'matabase/home.html', context=context)
     elif request.GET.get('moviesPar', None) == 'deleted':
         movies = Matabase.objects.filter(status='r')
         paginator = Paginator(movies, 10) 
         page = request.GET.get('page')
         movies = paginator.get_page(page)
-        Tags(movies)
-        context = {'movies': movies, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer, 'page': 'deleted'}
+        # Tags(movies)
+        context = {'movies': movies, 'genres': genres, 'count': count, 'footer': footer, 'page': 'deleted'}
         return render(request, 'matabase/home.html', context=context)
     # status links action
     if request.GET.get('status', None) == 'downloaded':
@@ -131,8 +128,8 @@ def MatabaseHome(request, moviesPar=None):
         item.save()
         messages.success(request, f"{item.title}'s status had changed to downloaded")
         movies = Matabase.objects.filter(status='d').order_by('-updatedDate')[:10]
-        Tags(movies)
-        context = {'movies': movies, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer}
+        # Tags(movies)
+        context = {'movies': movies, 'genres': genres, 'count': count, 'footer': footer}
         return redirect('homePage')
     elif request.GET.get('status', None) == 'watched':
         # change status -> watched
@@ -142,8 +139,8 @@ def MatabaseHome(request, moviesPar=None):
         item.save()
         messages.info(request, f"{item.title}'s status had changed to watched")
         movies = Matabase.objects.filter(status='w').order_by('-updatedDate')[:10]
-        Tags(movies)
-        context = {'movies': movies, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer}
+        # Tags(movies)
+        context = {'movies': movies, 'genres': genres, 'count': count, 'footer': footer}
         return redirect('homePage')
     elif request.GET.get('status', None) == 'deleted':
         # change status -> deleted
@@ -153,8 +150,8 @@ def MatabaseHome(request, moviesPar=None):
         item.save()
         messages.warning(request, f"{item.title}'s status had changed to deleted")
         movies = Matabase.objects.filter(status='r').order_by('-updatedDate')[:10]
-        Tags(movies)
-        context = {'movies': movies, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer}
+        # Tags(movies)
+        context = {'movies': movies, 'genres': genres, 'count': count, 'footer': footer}
         return redirect('homePage')
     if request.method == 'POST':
         # search function
@@ -163,12 +160,12 @@ def MatabaseHome(request, moviesPar=None):
             searchKeyword = formInfo.get('searchField').strip().replace('  ', ' ')
             if searchKeyword:
                 movies = Matabase.objects.filter(Q(title__contains=searchKeyword) | Q(year__exact=searchKeyword))
-                Tags(movies)
-                context = {'movies': movies, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer}
+                # Tags(movies)
+                context = {'movies': movies, 'genres': genres, 'count': count, 'footer': footer}
             elif not searchKeyword and not formInfo.get('titleField') and not formInfo.get('yearField'):
                 # search not found condition
                 movies = []
-                context = {'movies': movies, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer}
+                context = {'movies': movies, 'genres': genres, 'count': count, 'footer': footer}
         # add record function
         elif 'addButton' in request.POST:
             formInfo = request.POST.copy()
@@ -203,6 +200,7 @@ def MatabaseHome(request, moviesPar=None):
                     mag.mag = c
                     mag.save()
                 messages.success(request, f'New record [{record.title}] has been saved!')
+                movies = Matabase.objects.filter(status='d').order_by('-createdDate', 'title')
             else:
                 messages.warning(request, 'New record not save, please provide the movie info completely (both title and year)...')
         elif 'loginButton' in request.POST:
@@ -211,47 +209,55 @@ def MatabaseHome(request, moviesPar=None):
                 'username'), password=formInfo.get('password'))
             login(request, user)
             return redirect('homePage')
-    context = {'movies': movies, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer}
+    context = {'movies': movies, 'genres': genres, 'count': count, 'footer': footer}
     return render(request, 'matabase/home.html', context=context)
 
 
 def MatabaseUpdate(request, id):
     if request.user.is_authenticated:
         movie = Matabase.objects.filter(id=id).first()
-        tags = Tag(movie)
+        # tags = Tag(movie)
         if request.method == 'POST':
-            updateForm = request.POST.copy()
-            if updateForm.get('searchField') != '':
-                searchKey = updateForm.get('searchField', None).strip()
-                movies = Matabase.objects.filter(title__contains=searchKey)
-                tags = Tags(movies)
-                context = {'movies': movies, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer}
-                return render(request, 'matabase/home.html', context=context)
-            else:
-                # update record
-                movie.title = updateForm.get('titleField', None)
-                movie.year = updateForm.get('yearField', None)
-                movie.status = updateForm.get('statusField', None)
-                movie.save()
-                return redirect('homePage')
+            formInfo = request.POST.copy()
+            movie.title = formInfo.get('titleField')
+            movie.year = formInfo.get('yearField')
+            movie.status = formInfo.get('statusField')
+            movie.save()
+            movies = Matabase.objects.filter(id=id)
+            context = {'movies': movies, 'genres': genres, 'count': count, 'footer': footer}
+            return render(request, 'matabase/home.html', context)
+        context = {'movie': movie, 'genres': genres, 'count': count, 'footer': footer}
+        return render(request, 'matabase/update.html', context=context)
     else:
         messages.warning(
             request, f'You have no permission to update record, contact your admin for more info.')
-    context = {'movie': movie, 'genres': genres, 'tags': tags, 'count': count, 'footer': footer}
-    return render(request, 'matabase/update.html', context=context)
+    context = {'footer': footer}
+    return render(request, 'matabase/home.html', context=context)
 
 
 def MatabaseDelete(request, id):
     if request.user.is_authenticated:
-        movie = Matabase.objects.filter(id=id).first()
-        movie.delete()
-        messages.warning(request, f'{movie.title} had been deleted.')
+        try:
+            movie = Matabase.objects.filter(id=id).first()
+            movie.delete()
+            messages.warning(request, f'{movie.title} had been deleted.')
+            return redirect('homePage')
+        except:
+            messages.warning(request, f'Your record id not found.')
+            return redirect('homePage')
     else:
         messages.warning(request, f'You have no permission to delete record, contact your admin for more info.')
-    return redirect('homePage')
+        return redirect('homePage')
 
 
 def Dashboard(request):
+    # movies = Matabase.objects.all()
+    # duplicated = {}
+    # for m in movies:
+    #     dp = Matabase.objects.filter(Q(title__iexact=m.title) | Q(title__contains=m.title) | Q(year__iexact=m.year))
+    #     for d in dp:
+    #         duplicated[d.id] = d
+    # print(f'DUPLICATED RECORDS: {duplicated}')
     context = {'count': count, 'footer': footer}
     return render(request, 'matabase/dash.html', context=context)
 
@@ -281,8 +287,3 @@ def Register(request):
     context = {'footer': footer}
     return render(request, 'matabase/register.html', context=context)
 
-# @api_view(['GET'])
-def AllMoviesApi(request):
-    movies = Matabase.objects.all()[:10]
-    serializer = MatabaseSerializer(movies, many=True)
-    return JsonResponse(serializer.data, safe=False, json_dumps_params={'ensure_ascii': False})
