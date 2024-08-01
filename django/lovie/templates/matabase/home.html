@@ -5,43 +5,27 @@
 <div class="alert alert-{{ message.tags }}"><em>{{ message }}</em></div>
 {% endfor %}
 {% endif %}
-<div class="row justify-content-center">
-    <div class="col-sm-12 col-md-10 col-lg-6">
-        <form action="" method="post">
-            {% csrf_token %}
-            <div class="input-group my-1">
-                <input type="text" class="form-control text text-center" placeholder="Search movie's name"
-                    aria-label="Search movie's name" aria-describedby="searchButton" id="searchField"
-                    name="searchField" {% if not messages %}autofocus{% endif %}>
-                <button class="btn btn-outline-secondary" type="submit" id="searchButton" name="searchButton"
-                    data-toggle="tooltip" title="Search through record(s)">
-                    <i class="bi bi-search"></i>
-                    Search
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
+
 {% if request.user.is_staff %}
 <form action="" method="post">
     {% csrf_token %}
     <div class="row justify-content-center">
-        <div class="col-sm-12 col-md-6 col-lg-5 mb-1">
+        <div class="col col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 col-xxl-5 mb-1">
             <input type="text" class="form-control text text-center my-1" placeholder="Title" aria-label="Title"
                 aria-describedby="addButton" name="titleField" id="titleField" {% if messages %}autofocus{% endif %}>
         </div>
-        <div class="col-sm-3 col-md-6 col-lg-2 mb-1">
+        <div class="col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mb-1">
             <input type="text" class="form-control text text-center my-1" placeholder="Year" aria-label="Year"
                 aria-describedby="addButton" name="yearField" id="yearField">
         </div>
-        <div class="col-sm-6 col-md-6 col-lg-3 mb-1">
+        <div class="col col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mb-1">
             <select class="form-select my-1" aria-label="status" name="statusField" id="statusField">
                 <option value="d" selected>Download</option>
                 <option value="w">Watched</option>
                 <option value="r">Removed</option>
             </select>
         </div>
-        <div class="col-sm-3 col-md-6 col-lg-2 mb-1">
+        <div class="col col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mb-1">
             <button class="btn btn-outline-secondary form-control my-1" type="submit" name="addButton" id="addButton"
                 data-toggle="tooltip" title="Add new record">
                 <i class="bi bi-plus-square"></i>
@@ -51,27 +35,27 @@
     </div>
     <div class="row justify-content-center my-1">
         <div class="col">
-            <div class="accordion accordion-flush" id="accordionTag">
+            <div class="accordion accordion-flush" id="accordionExample">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button text text-muted text-center" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             <div class="row">
-                                <div class="col-md-4 col-lg-2">
+                                <div class="col col-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 col-xxl-2">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="checkbox" id="untag" value="untag" checked>
-                                        <label class="form-check-label" for="untag">untag</label>
+                                        <label class="form-check-label" for="untag">(un)tag</label>
                                     </div>
                                 </div>
                             </div>
                         </button>
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                        data-bs-parent="#accordionTag">
+                        data-bs-parent="#accordionExample">
                         <div class="accordion-body text text-muted">
                             <div class="row">
                                 {% for gen in genres %}
-                                <div class="col-md-4 col-lg-2">
+                                <div class="col col-4 col-sm-4 col-md-4 col-lg-2 col-xl-2 col-xxl-2">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="checkbox" id="{{ gen }}" value="{{ gen }}"
                                             name="{{ gen }}">
@@ -93,15 +77,15 @@
         <tr class="align-middle">
             <td colspan="4">
                 <div class="row">
-                    <div class="col-sm-6 col-md-3 my-1">
+                    <div class="col-6 col-md-3 my-1">
                         <a href="{% url 'homePage' %}?moviesPar=all"
                             class="btn btn-sm btn-outline-secondary form-control form-control-sm" data-toggle="tooltip"
                             title="Show all record(s)">
                             <i class="bi bi-check-all"></i>
-                            All <span class="badge text-bg-secondary">{{ count.all }}</span>
+                            All Movies <span class="badge text-bg-secondary">{{ count.all }}</span>
                         </a>
                     </div>
-                    <div class="col-sm-6 col-md-3 my-1">
+                    <div class="col-6 col-md-3 my-1">
                         <a href="{% url 'homePage' %}?moviesPar=watched"
                             class="btn btn-sm btn-outline-secondary form-control form-control-sm" data-toggle="tooltip"
                             title="Show only watched record(s)">
@@ -109,7 +93,7 @@
                             Watched <span class="badge text-bg-secondary">{{ count.watched }}</span>
                         </a>
                     </div>
-                    <div class="col-sm-6 col-md-3 my-1">
+                    <div class="col-6 col-md-3 my-1">
                         <a href="{% url 'homePage' %}?moviesPar=downloaded"
                             class="btn btn-sm btn-outline-secondary form-control form-control-sm" data-toggle="tooltip"
                             title="Show only downloaded record(s)">
@@ -117,7 +101,7 @@
                             Downloaded <span class="badge text-bg-secondary">{{ count.downloaded }}</span>
                         </a>
                     </div>
-                    <div class="col-sm-6 col-md-3 my-1">
+                    <div class="col-6 col-md-3 my-1">
                         <a href="{% url 'homePage' %}?moviesPar=deleted"
                             class="btn btn-sm btn-outline-secondary form-control form-control-sm" data-toggle="tooltip"
                             title="Show only deleted record(s)">
@@ -129,19 +113,15 @@
             </td>
         </tr>
         <tr class="align-middle">
-            <th style="width: 40%">
+            <th style="width: 50%">
                 <i class="bi bi-code-slash"></i>
                 Name
-            </th>
-            <th style="width: 30%">
-                <i class="bi bi-tags"></i>
-                Tag(s)
             </th>
             <th style="width: 10%">
                 <i class="bi bi-calendar-date"></i>
                 Year
             </th>
-            <th style="width: 20%">
+            <th style="width: 40%">
                 <i class="bi bi-info-square"></i>
                 Status
             </th>
@@ -150,47 +130,10 @@
     <tbody>
         {% if movies %}
         {% for m in movies %}
-        <tr class="text text-end align-middle">
+        <tr class="text text-center align-middle">
             <td class="text text-start">
-                <div class="row">
-                    <div class="{% if request.user.is_staff %}col-9{% else %}col{% endif %}">
-                        <a href="https://www.google.com/search?q={{ m.title }}" class="" data-toggle="tooltip" title="Search with Google"
-                            target="_blank" class="link-secondary">
-                            {{ m.title }}
-                        </a>
-                    </div>
-
-                    {% if request.user.is_staff %}
-
-                    <div class="col-1">
-                        <a href="{% url 'updatePage' id=m.id %}" class="" data-toggle="tooltip" title="Edit Record">
-                            <i class="bi bi-pencil-square"></i>
-                        </a>
-                    </div>
-                    <div class="col-1">
-                        <a href="{% url 'deletePage' id=m.id %}" class="" data-toggle="tooltip" title="Delete Record" onclick="return confirm('Do you really want to DELETE {{m.title}} from database?')">
-                            <i class="bi bi-trash"></i>
-                        </a>
-                    </div>
-                    
-                    {% endif %}
-
-                </div>
-            </td>
-            <td>                 
-                        
-                {% for key, values in tags.items %}
-                    
-                    {% if key == m.id %}
-                        
-                        {% for value in values %}
-                            <span class="badge text-bg-{% cycle 'secondary' 'dark' %}">{{ value }}</span>
-                        {% endfor %}
-
-                    {% endif %}
-                        
-                {% endfor %}
-
+                <a href="https://www.google.com/search?q={{ m.title }}" class="" data-toggle="tooltip"
+                    title="Search with Google" target="_blank">{{ m.title }}</a>
             </td>
             <td>
                 {{ m.year }}
@@ -198,7 +141,7 @@
             <td>
                 {% if request.user.is_staff %}
                 <div class="row">
-                    <div class="col-sm-12 col-md-4 my-1">
+                    <div class="col-4 my-1">
                         <a href="{% url 'homePage' %}?status=downloaded&id={{ m.id }}"
                             class="btn btn-sm form-control form-control-sm {% if m.status == 'd' %}btn-outline-info disabled{% else %} btn-outline-secondary{% endif %}"
                             onclick="return confirm('Are you sure to change the status to Downloaded?')"
@@ -206,14 +149,14 @@
                             <i class="bi bi-cloud-download"></i>
                         </a>
                     </div>
-                    <div class="col-sm-12 col-md-4 my-1">
+                    <div class="col-4 my-1">
                         <a href="{% url 'homePage' %}?status=watched&id={{ m.id }}"
                             class="btn btn-sm form-control form-control-sm {% if m.status == 'w' %}btn-outline-info disabled{% else %} btn-outline-secondary{% endif %}"
                             data-toggle="tooltip" title="Change record status to WATCHED">
                             <i class="bi bi-eye"></i>
                         </a>
                     </div>
-                    <div class="col-sm-12 col-md-4 my-1">
+                    <div class="col-4 my-1">
                         <a href="{% url 'homePage' %}?status=deleted&id={{ m.id }}"
                             class="btn btn-sm form-control form-control-sm {% if m.status == 'r' %}btn-outline-info disabled{% else %} btn-outline-secondary{% endif %}"
                             onclick="return confirm('Are you sure, to change the status to Deleted?')"
@@ -223,21 +166,24 @@
                     </div>
                 </div>
                 {% else %}
-                <div class="row">
+                <div class="row text text-nowrap">
                     {% if m.status == 'd' %}
-                    <div class="col-md-12 my-1">
-                        <i class="bi bi-cloud-download"></i>
-                        Downloaded
+                    <div class="col col-12 col-sm-12 col-md-12 my-1">
+                        <i class="bi bi-cloud-download">
+                            <span style="white-space:nowrap" class="d-none d-md-block d-lg-block d-xl-block d-xxl-block">Downloaded</span>
+                        </i>
                     </div>
                     {% elif m.status == 'w' %}
-                    <div class="col-md-12 my-1">
-                        <i class="bi bi-eye"></i>
-                        Watched
+                    <div class="col col-12 col-sm-12 col-md-12 my-1">
+                        <i class="bi bi-eye">
+                            <span style="white-space:nowrap" class="d-none d-md-block d-lg-block d-xl-block d-xxl-block">Watched</span>
+                        </i>
                     </div>
                     {% else %}
-                    <div class="col-md-12 my-1">
-                        <i class="bi bi-trash"></i>
-                        Deleted
+                    <div class="col col-12 col-sm-12 col-md-12 my-1">
+                        <i class="bi bi-trash">
+                            <span style="white-space:nowrap" class="d-none d-md-block d-lg-block d-xl-block d-xxl-block">Deleted</span>
+                        </i>
                     </div>
                     {% endif %}
                 </div>
@@ -247,15 +193,14 @@
         {% endfor %}
         {% else %}
         <tr>
-            <td colspan="4" class="text text-danger text-center">No records found</td>
+            <td colspan="3" class="text text-danger text-center">No records found</td>
         </tr>
         {% endif %}
     </tbody>
-    
-    {% if page == 'all' %}  
+    {% if page == 'all' %}
     <tfoot>
         <tr>
-            <td colspan="4">
+            <td colspan="3">
                 <div class="row">
                     <div class="col">
                         <nav aria-label="Page navigation">
@@ -312,7 +257,7 @@
     {% elif page == 'downloaded' %}
     <tfoot>
         <tr>
-            <td colspan="4">
+            <td colspan="3">
                 <div class="row">
                     <div class="col">
                         downloaded
@@ -370,7 +315,7 @@
     {% elif page == 'watched' %}
     <tfoot>
         <tr>
-            <td colspan="4">
+            <td colspan="3">
                 <div class="row">
                     <div class="col">
                         <nav aria-label="Page navigation">
@@ -427,7 +372,7 @@
     {% elif page == 'deleted' %}
     <tfoot>
         <tr>
-            <td colspan="4">
+            <td colspan="3">
                 <div class="row">
                     <div class="col">
                         <nav aria-label="Page navigation">
