@@ -2,26 +2,9 @@
 {% block content %}
 {% if messages %}
 {% for message in messages %}
-<div class="alert alert-{{ message.tags }}"><em>{{ message }}</em></div>
+<div class="alert alert-{{ message.tags }}" id="message"><em>{{ message }}</em></div>
 {% endfor %}
 {% endif %}
-<div class="row justify-content-center">
-    <div class="col-sm-12 col-md-10 col-lg-6">
-        <form action="" method="post">
-            {% csrf_token %}
-            <div class="input-group my-1">
-                <input type="text" class="form-control text text-center" placeholder="Search movie's name"
-                    aria-label="Search movie's name" aria-describedby="searchButton" id="searchField"
-                    name="searchField" {% if not messages %}autofocus{% endif %}>
-                <button class="btn btn-outline-secondary" type="submit" id="searchButton" name="searchButton"
-                    data-toggle="tooltip" title="Search through record(s)">
-                    <i class="bi bi-search"></i>
-                    Search
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
 {% if request.user.is_staff %}
 <form action="" method="post">
     {% csrf_token %}
@@ -169,17 +152,17 @@
                 {% else %}
                 <div class="row">
                     {% if m.status == 'd' %}
-                    <div class="col-md-12 my-1">
+                    <div class="col-md-4 my-1">
                         <i class="bi bi-cloud-download"></i>
                         Downloaded
                     </div>
                     {% elif m.status == 'w' %}
-                    <div class="col-md-12 my-1">
+                    <div class="col-md-4 my-1">
                         <i class="bi bi-eye"></i>
                         Watched
                     </div>
                     {% else %}
-                    <div class="col-md-12 my-1">
+                    <div class="col-md-4 my-1">
                         <i class="bi bi-trash"></i>
                         Deleted
                     </div>

@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('matabase/', include('matabase.urls')),
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
-    path('api/', include('matabase.apiUrls')),
+    # path('api/', include('matabase.apiUrls')),
 ]

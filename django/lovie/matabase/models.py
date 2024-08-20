@@ -28,34 +28,6 @@ class Matabase(models.Model):
         return self.title + " [" + str(self.year) + "]"
 
 
-class Mag(models.Model):
-    '''
-    action, adventure, animated, 
-    comedy, crime, 
-    drama, detective, documentary,
-    epics,
-    fantasy, 
-    gangster,
-    historical, horror, 
-    musical, mystery,
-    noir, 
-    period,
-    romance, 
-    science fiction, superhero, supernatural
-    thriller, 
-    war, western,
-    zombie,
-    '''
-    magReference = models.ForeignKey(Matabase, on_delete= models.CASCADE)
-    mag = models.CharField(max_length=50)
-
-    class Meta:
-        ordering = ['magReference']
-
-    def __str__(self):
-        return f'{self.magReference.title} [{self.mag}]'
-
-
 class Footer(models.Model):
     footerCategory = [('stack', 'stack'), ('links', 'links'), ('developer', 'developer')]
     category = models.CharField(max_length=25, choices=footerCategory)
@@ -71,3 +43,30 @@ class Footer(models.Model):
     def __str__(self):
         return self.title
     
+
+# class Mag(models.Model):
+#     '''
+#     action, adventure, animated, 
+#     comedy, crime, 
+#     drama, detective, documentary,
+#     epics,
+#     fantasy, 
+#     gangster,
+#     historical, horror, 
+#     musical, mystery,
+#     noir, 
+#     period,
+#     romance, 
+#     science fiction, superhero, supernatural
+#     thriller, 
+#     war, western,
+#     zombie,
+#     '''
+#     magReference = models.ForeignKey(Matabase, on_delete= models.CASCADE)
+#     mag = models.CharField(max_length=50)
+
+#     class Meta:
+#         ordering = ['magReference']
+
+#     def __str__(self):
+#         return f'{self.magReference.title} [{self.mag}]'
