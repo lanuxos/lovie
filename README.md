@@ -7,17 +7,19 @@ git clone --branch <branchName> --single-branch https://github.com/lanuxos/lovie
 git push --set-upstream origin <branchName>
 ```
 ### django
-- django 4.1
-- bootstrap 5.2
-- djangorestframework 3.14.0
+- django
+- bootstrap
+- djangorestframework
+- commented out urls.py models.py admin.py views.py before migrate database, preventing model error
 ```
 git checkout -b django
 python -m virtualenv venv
 .\venv\Script\activate  # for Windows user, use source ./venv/bin/activate instead for mac user
-python -m pip install django==4.1
+python -m pip install django
 python manage.py migrate
 python manage.py createsuperuser
-python manage.py loaddata fixtures/Footer  # to load data from fixtures file named Footer
+python manage.py loaddata footer.json  # to load data from fixtures file named Footer
+python manage.py loaddata db.json  # to load data from fixtures file named db
 python manage.py runserver
 # visit localhost:8000/matabase/home or localhost:8000/admin
 ```
