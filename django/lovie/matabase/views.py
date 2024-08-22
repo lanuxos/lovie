@@ -1,3 +1,4 @@
+from typing import Any
 from django.shortcuts import render, redirect
 from django.contrib import messages # alert/flash messages
 from .models import *
@@ -389,13 +390,13 @@ def MatabaseUpdate(request, id):
             messages.success(
                     request, f"Record [{movie.title}] has been updated!"
                 )
-            movies = Matabase.objects.filter(id=id)
+            movie = Matabase.objects.filter(id=id).first()
             context = {
-                'movies': movies, 
+                'movie': movie, 
                 'count': count, 
                 'footer': footer
                 }
-            return render(request, 'matabase/home.html', context)
+            return render(request, 'matabase/update.html', context)
         context = {
             'movie': movie, 
             'count': count, 
@@ -425,15 +426,28 @@ def MatabaseDelete(request, id):
 
 
 def Dashboard(request):
-    # movies = Matabase.objects.all()
-    # duplicated = {}
-    # for m in movies:
-    #     dp = Matabase.objects.filter(Q(title__iexact=m.title) | Q(title__contains=m.title) | Q(year__iexact=m.year))
-    #     for d in dp:
-    #         duplicated[d.id] = d
-    # print(f'DUPLICATED RECORDS: {duplicated}')
-    context = {'count': count, 'footer': footer}
-    return render(request, 'matabase/dash.html', context=context)
+    watched = Matabase.objects.filter(status="w").count()
+    downloaded = Matabase.objects.filter(status="d").count()
+    deleted = Matabase.objects.filter(status="r").count()
+    totalMovies = watched + downloaded + deleted
+    if totalMovies == 0:
+        watchedPercentage = 0
+        downloadedPercentage = 0
+        deletedPercentage = 0
+    else:
+        watchedPercentage = round(watched * 100 / totalMovies)
+        downloadedPercentage = round(downloaded * 100 / totalMovies)
+        deletedPercentage = round(deleted * 100 / totalMovies)
+    context = {
+        "totalMovies": totalMovies,
+        "watched": watched,
+        "downloaded": downloaded,
+        "deleted": deleted,
+        "watchedPercentage": watchedPercentage,
+        "downloadedPercentage": downloadedPercentage,
+        "deletedPercentage": deletedPercentage,
+    }
+    return render(request, "matabase/dash.html", context=context)
 
 
 def Register(request):
@@ -444,7 +458,7 @@ def Register(request):
         login(request, user)
         return redirect('homePage')
     elif 'registerButton' in request.POST:
-    # if request.method == 'POST':
+        # if request.method == 'POST':
         formInfo = request.POST.copy()
         if formInfo.get('password') != formInfo.get('confirmPassword'):
             return redirect('registerPage')
@@ -460,3 +474,69 @@ def Register(request):
         return redirect('homePage')
     context = {'footer': footer}
     return render(request, 'matabase/register.html', context=context)
+
+
+### class based views ###
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+
+
+class CMatabaseCreateView(CreateView):  # create MODELNAME_form.html in template folder
+    model = Matabase
+    fields = [
+        "title",
+        "year",
+        "status",
+    ]
+    success_url = "../list"
+
+
+class CMatabaseListView(ListView):  # create MODELNAME_list.html in template folder
+    model = Matabase
+    # context_object_name = "YOUR_OWN_OBJECT_NAME"  # to change context object name from default [object_list]
+    # custom queryset
+    # queryset = Matabase.objects.all().order_by("-id")
+
+
+class CustomMatabaseListView(ListView):  # create MODELNAME_list.html in template folder
+    # model = Matabase
+    # context_object_name = "YOUR_OWN_OBJECT_NAME"  # to change context object name from default [object_list]
+    # custom queryset
+    queryset = Matabase.objects.all().order_by("title")
+    template_name = "matabase/custom_matabase_list.html"
+
+from django.shortcuts import get_object_or_404
+class CMatabaseListViewWithParameter(ListView):
+    template_name = "matabase/custom_matabase_list.html"
+    def get_queryset(self):
+        return Matabase.objects.filter(status=self.kwargs["status"])
+
+
+class CMatabaseDetailView(
+    DetailView
+):  # create MODELNAME_detail.html in template folder
+    model = Matabase
+
+    # get context data from model, additional option
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context["total"] = Matabase.objects.all().count()
+        return super().get_context_data(**kwargs)
+
+
+class CMatabaseUpdateView(UpdateView):  # create MODELNAME_form.html in template folder
+    model = Matabase
+    fields = [
+        "title",
+        "year",
+        "status",
+    ]
+    success_url = "../list"
+
+
+class CMatabaseDeleteView(
+    DeleteView
+):  # create MODELNAME_confirm_delete.html in template folder
+    model = Matabase
+    success_url = "../list"
