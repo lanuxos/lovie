@@ -1,0 +1,28 @@
+{% extends 'matabase/base.html' %}
+
+
+{% block content %}
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <td style="width: 60%">Title</td>
+                <td style="width: 20%">Year</td>
+                <td style="width: 20%">Status</td>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for object in object_list %}
+                
+            <tr class="">
+                <td><a class="" href="{% url 'CMatabaseDetailView' object.pk %}">[{{ object.pk }}]
+                        <i class="bi bi-link"></i>{{ object.title }}</a></td>
+                <td>{{ object.year }}</td>
+                <td><span class="badge bg-secondary rounded-pill"> {{ object.status }} </span></td>
+            </tr>
+            
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
+    

@@ -1,0 +1,38 @@
+{% extends 'matabase/base.html' %}
+
+
+{% block content %}
+
+    <div class="card">
+        <div class="class-body">
+            <div class="row card-title h1">
+                <div class="col-4">
+                    Movie title:
+                </div>
+                <div class="col-8">
+                    {{ object.title }}
+                </div>
+            </div>
+            <div class="row card-subtitle h3">
+                <div class="col-4">
+                    Movie release year:
+                </div>
+                <div class="col-8">
+                    {{ object.year }}
+                </div>
+            </div>
+            <div class="row card-text h5">
+                <div class="col-4">
+                    Status
+                </div>
+                <div class="col-4">
+                    {{ object.status }}
+                </div>
+                <div class="col-4">
+                    of {{ object.total }} movie(s) in total
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

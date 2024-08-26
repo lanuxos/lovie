@@ -1,0 +1,15 @@
+{% extends 'matabase/base.html' %}
+
+
+{% block content %}
+    <ul class="list-group list-group-flush">
+        {% for object in object_list %}
+        <a class="list-group-item" href="{% url 'CMatabaseDetailView' object.pk %}">[{{ object.pk }}] {{ object.title }} |
+            {{ object.year }} <span class="badge bg-secondary rounded-pill"> {{ object.status }} </span></a>
+        <hr>
+        {% empty %}
+        <li class="list-group-item">There is no movie in database</li>
+        {% endfor %}
+    </ul>
+{% endblock content %}
+    
