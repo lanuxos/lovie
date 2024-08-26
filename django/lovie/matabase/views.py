@@ -1,11 +1,20 @@
 from typing import Any
 from django.shortcuts import render, redirect
-from django.contrib import messages # alert/flash messages
+from django.contrib import messages
+
+# from flask.lovie.auth import login_required # alert/flash messages
 from .models import *
 from django.db.models import Q # Q expression
 from django.contrib.auth.models import User # registering new member to django User models
 from django.contrib.auth import authenticate, login # for logging in
 from django.core.paginator import Paginator # Paginator
+### class based views ###
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 
 # db record count
@@ -71,20 +80,20 @@ def MatabaseHome(request, moviesPar=None):
     #                 tags[mg["magReference_id"]] = [mg["mag"]]
     #     return tags
 
-    genres = [
-        "action",
-        "comedy",
-        "crime",
-        "drama",
-        "horror",
-        "animated",
-        "detective",
-        "romance",
-        "scienceFiction",
-        "superNatural",
-        "war",
-        "zombie",
-    ]
+    # genres = [
+    #     "action",
+    #     "comedy",
+    #     "crime",
+    #     "drama",
+    #     "horror",
+    #     "animated",
+    #     "detective",
+    #     "romance",
+    #     "scienceFiction",
+    #     "superNatural",
+    #     "war",
+    #     "zombie",
+    # ]
     movies = Matabase.objects.filter(status="d").order_by("-createdDate")[:10]
     # tags = {}
     # Tag(movies)
@@ -476,12 +485,7 @@ def Register(request):
     return render(request, 'matabase/register.html', context=context)
 
 
-### class based views ###
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
-
-
+### class based view ###
 class CMatabaseCreateView(CreateView):  # create MODELNAME_form.html in template folder
     model = Matabase
     fields = [
@@ -493,6 +497,7 @@ class CMatabaseCreateView(CreateView):  # create MODELNAME_form.html in template
 
 
 class CMatabaseListView(ListView):  # create MODELNAME_list.html in template folder
+    paginate_by = 10    # pagination
     model = Matabase
     # context_object_name = "YOUR_OWN_OBJECT_NAME"  # to change context object name from default [object_list]
     # custom queryset
@@ -504,13 +509,19 @@ class CustomMatabaseListView(ListView):  # create MODELNAME_list.html in templat
     # context_object_name = "YOUR_OWN_OBJECT_NAME"  # to change context object name from default [object_list]
     # custom queryset
     queryset = Matabase.objects.all().order_by("title")
+    paginate_by = 10    # pagination
     template_name = "matabase/custom_matabase_list.html"
 
-from django.shortcuts import get_object_or_404
+
 class CMatabaseListViewWithParameter(ListView):
     template_name = "matabase/custom_matabase_list.html"
     def get_queryset(self):
-        return Matabase.objects.filter(status=self.kwargs["status"])
+        statusKey = {
+            "downloaded": "d",
+            "watched": "w",
+            "removed": "r"
+        }
+        return Matabase.objects.filter(status=statusKey[self.kwargs["status"]])
 
 
 class CMatabaseDetailView(
@@ -521,11 +532,14 @@ class CMatabaseDetailView(
     # get context data from model, additional option
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
-        context["total"] = Matabase.objects.all().count()
-        return super().get_context_data(**kwargs)
+        totalMovie = Matabase.objects.all().count()
+        context["totalMovie"] = totalMovie
+        return context
 
 
-class CMatabaseUpdateView(UpdateView):  # create MODELNAME_form.html in template folder
+class CMatabaseUpdateView(
+    LoginRequiredMixin, UpdateView
+):  # create MODELNAME_form.html in template folder
     model = Matabase
     fields = [
         "title",

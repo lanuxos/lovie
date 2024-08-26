@@ -25,6 +25,7 @@ urlpatterns = [
         auth_views.LogoutView.as_view(template_name="logout.html"),
         name="logout",
     ),
+    path("login/",auth_views.LoginView.as_view(template_name="matabase/login.html"), name="login"), # for login, then add templates/matabase/login.html, default is at registration/login.html
     path("matabase/", include("matabase.urls")),
     # path('api/', include('matabase.apiUrls')),
 ]

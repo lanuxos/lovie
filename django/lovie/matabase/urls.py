@@ -16,6 +16,7 @@ from django.contrib import admin
 """
 from django.urls import path
 from .views import *
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path("", MatabaseHome, name="homePage"),
@@ -24,11 +25,12 @@ urlpatterns = [
     path("update/<int:id>/", MatabaseUpdate, name="updatePage"),
     path("delete/<int:id>/", MatabaseDelete, name="deletePage"),
     ### class base views ###
+    # path("login/", CLoginView.as_view(), name="login"),
     path("new/", CMatabaseCreateView.as_view(), name="newCMatabase"),
     path("list/", CMatabaseListView.as_view(), name="CMatabaseListView"),
     path("clist/", CustomMatabaseListView.as_view(), name="CustomMatabaseListView"),
     path("clist/<status>", CMatabaseListViewWithParameter.as_view(), name="CMatabaseListViewWithParameter"),
     path("detail/<pk>/", CMatabaseDetailView.as_view(), name="CMatabaseDetailView"),
     path("<pk>/update", CMatabaseUpdateView.as_view(), name="CMatabaseUpdateView"),
-    path("<pk>/delete", CMatabaseDeleteView.as_view(), name="CMatabaseDeleteView"),
+    path("<pk>/delete", login_required(CMatabaseDeleteView.as_view()), name="CMatabaseDeleteView"),
 ]

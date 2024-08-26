@@ -2,37 +2,45 @@
 
 
 {% block content %}
-
-    <div class="card">
-        <div class="class-body">
-            <div class="row card-title h1">
-                <div class="col-4">
-                    Movie title:
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 card">
+            <div class="card-body">
+                <div class="row card-title h3">
+                    <div class="col-4">
+                        Movie title:
+                    </div>
+                    <div class="col-8">
+                        {{ object.title }}
+                    </div>
                 </div>
-                <div class="col-8">
-                    {{ object.title }}
+                <div class="row card-subtitle h3">
+                    <div class="col-4">
+                        Release year:
+                    </div>
+                    <div class="col-8">
+                        {{ object.year }}
+                    </div>
+                </div>
+                <div class="row card-text h3">
+                    <div class="col-4">
+                        Status
+                    </div>
+                    <div class="col-4">
+                        {{ object.status }}
+                    </div>
+                    <div class="col-4 h5">
+                        1 of {{ totalMovie }} movie(s)
+                    </div>
                 </div>
             </div>
-            <div class="row card-subtitle h3">
-                <div class="col-4">
-                    Movie release year:
-                </div>
-                <div class="col-8">
-                    {{ object.year }}
-                </div>
-            </div>
-            <div class="row card-text h5">
-                <div class="col-4">
-                    Status
-                </div>
-                <div class="col-4">
-                    {{ object.status }}
-                </div>
-                <div class="col-4">
-                    of {{ object.total }} movie(s) in total
-                </div>
+            <div class="card-footer text-end">
+                <a href="{% url 'CMatabaseUpdateView' object.pk %}"><i class="bi bi-pencil">Update</i></a>
+                <a href="{% url 'CMatabaseDeleteView' object.pk %}"><i class="bi bi-trash">Delete</i></a>
             </div>
         </div>
+        <div class="col-md-3"></div>
     </div>
+    
 
 {% endblock content %}
