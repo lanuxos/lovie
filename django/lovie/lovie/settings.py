@@ -121,6 +121,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [ BASE_DIR / 'static' ]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -129,3 +131,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'login'     # define to redirect to login page if login_required is set
 LOGIN_REDIRECT_URL = 'homePage'
 LOGOUT_REDIRECT_URL = 'homePage'
+
+# AUTH_USER_MODEL = "matabase.userprofile"

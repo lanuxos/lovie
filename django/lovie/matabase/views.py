@@ -515,6 +515,7 @@ class CustomMatabaseListView(ListView):  # create MODELNAME_list.html in templat
 
 class CMatabaseListViewWithParameter(ListView):
     template_name = "matabase/custom_matabase_list.html"
+    paginate_by = 10
     def get_queryset(self):
         statusKey = {
             "downloaded": "d",
@@ -533,7 +534,9 @@ class CMatabaseDetailView(
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
         totalMovie = Matabase.objects.all().count()
+        requestUser = self.request.user
         context["totalMovie"] = totalMovie
+        context["requestUser"] = requestUser
         return context
 
 
