@@ -495,6 +495,11 @@ class CMatabaseCreateView(CreateView):  # create MODELNAME_form.html in template
     ]
     success_url = "../list"
 
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context['footer'] = footer
+        return context
+
 
 class CMatabaseListView(ListView):  # create MODELNAME_list.html in template folder
     paginate_by = 10    # pagination
@@ -502,6 +507,11 @@ class CMatabaseListView(ListView):  # create MODELNAME_list.html in template fol
     # context_object_name = "YOUR_OWN_OBJECT_NAME"  # to change context object name from default [object_list]
     # custom queryset
     # queryset = Matabase.objects.all().order_by("-id")
+
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context["footer"] = footer
+        return context
 
 
 class CustomMatabaseListView(ListView):  # create MODELNAME_list.html in template folder
@@ -511,6 +521,11 @@ class CustomMatabaseListView(ListView):  # create MODELNAME_list.html in templat
     queryset = Matabase.objects.all().order_by("title")
     paginate_by = 10    # pagination
     template_name = "matabase/custom_matabase_list.html"
+
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context["footer"] = footer
+        return context
 
 
 class CMatabaseListViewWithParameter(ListView):
@@ -523,6 +538,11 @@ class CMatabaseListViewWithParameter(ListView):
             "removed": "r"
         }
         return Matabase.objects.filter(status=statusKey[self.kwargs["status"]])
+
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context["footer"] = footer
+        return context
 
 
 class CMatabaseDetailView(
@@ -537,6 +557,7 @@ class CMatabaseDetailView(
         requestUser = self.request.user
         context["totalMovie"] = totalMovie
         context["requestUser"] = requestUser
+        context['footer'] = footer
         return context
 
 
@@ -551,9 +572,19 @@ class CMatabaseUpdateView(
     ]
     success_url = "../list"
 
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context["footer"] = footer
+        return context
+
 
 class CMatabaseDeleteView(
     DeleteView
 ):  # create MODELNAME_confirm_delete.html in template folder
     model = Matabase
     success_url = "../list"
+
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context["footer"] = footer
+        return context
