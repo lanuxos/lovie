@@ -31,6 +31,7 @@ urlpatterns = [
     path("clist/", CustomMatabaseListView.as_view(), name="CustomMatabaseListView"),
     path("clist/<status>", CMatabaseListViewWithParameter.as_view(), name="CMatabaseListViewWithParameter"),
     path("detail/<pk>/", CMatabaseDetailView.as_view(), name="CMatabaseDetailView"),
+    path("profile/", CMatabaseProfileView.as_view(), name="CMatabaseProfileView"),
     path("<pk>/update", CMatabaseUpdateView.as_view(), name="CMatabaseUpdateView"),
     path("<pk>/delete", login_required(CMatabaseDeleteView.as_view()), name="CMatabaseDeleteView"),
 ]
