@@ -501,6 +501,14 @@ class CMatabaseCreateView(CreateView):  # create MODELNAME_form.html in template
         return context
 
 
+class CMatabaseProfileView(
+    ListView):
+    template_name = "matabase/profile.html"
+
+    def get_queryset(self):
+        return UserProfile.objects.filter(username=self.request.user).first()
+
+
 class CMatabaseListView(ListView):  # create MODELNAME_list.html in template folder
     paginate_by = 10    # pagination
     model = Matabase
