@@ -1,0 +1,28 @@
+{% extends 'matabase/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="card text-center">
+                <div class="card-head">
+                    {% if object_list is not None %}
+                    <img src="{{ object_list.photo.url }}" alt="photoUrl" width="30" height="40">
+                    {% else %}
+                    <img src="{% static '../media/default.png' %}" alt="photoUrl" width="30" height="40">
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ requestUser }}</h5>
+                    <p class="card-text text-start">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
+                    <a href="{% url 'CustomMatabaseListView' %}" class="btn btn-secondary">All List</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    
+
+{% endblock content %}
