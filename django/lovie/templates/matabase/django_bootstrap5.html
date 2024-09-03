@@ -1,0 +1,53 @@
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<div class="container">
+    <div class="row border m-1 p-1">
+        <h1 class="text text-center">Django_Bootstrap5</h1>
+        <div class="col-sm-12 col-md-4"></div>
+        <div class="col-sm-12 col-md-4">
+            <form action="" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% bootstrap_button button_type="submit" content="Save" %}
+            </form>
+        </div>
+        <div class="col-sm-12 col-md-4"></div>
+    </div>
+    <div class="row border m-1 p-1">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="col-sm-12 col-md-3">
+                {% bootstrap_field form.title %}
+            </div>
+            <div class="col-sm-12 col-md-3">
+                {% bootstrap_field form.year %}
+            </div>
+            <div class="col-sm-12 col-md-3">
+                {% bootstrap_field form.status %}
+            </div>
+            <div class="col-sm-12 col-md-3">
+                {% bootstrap_button button_type="submit" content="Save" %}
+            </div>
+        </form>
+    </div>
+    <div class="row border m-1 p-1">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="col-sm-12 col-md-3">
+                {% bootstrap_field form.title layout="floating" %}
+            </div>
+            <div class="col-sm-12 col-md-3">
+                {% bootstrap_field form.year layout="floating" %}
+            </div>
+            <div class="col-sm-12 col-md-3">
+                {% bootstrap_field form.status layout="floating" %}
+            </div>
+            <div class="col-sm-12 col-md-3">
+                {% bootstrap_button button_type="submit" content="Save" %}
+            </div>
+        </form>
+    </div>
+    </div>
+</div>

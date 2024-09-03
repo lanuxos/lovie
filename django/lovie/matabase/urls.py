@@ -28,6 +28,8 @@ urlpatterns = [
     ### class base views ###
     # path("login/", CLoginView.as_view(), name="login"),
     path("new/", CMatabaseCreateView.as_view(), name="newCMatabase"),
+    path("bootstrap/", CMatabaseCreateViewWithBootstrap.as_view(), name="djangoBootstrap5"),
+    path("crispy/", CMatabaseCreateViewWithCrispy.as_view(), name="crispyBootstrap5"),
     path("list/", CMatabaseListView.as_view(), name="CMatabaseListView"),
     path("clist/", CustomMatabaseListView.as_view(), name="CustomMatabaseListView"),
     path("clist/<status>", CMatabaseListViewWithParameter.as_view(), name="CMatabaseListViewWithParameter"),

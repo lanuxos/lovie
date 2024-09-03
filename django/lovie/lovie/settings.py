@@ -31,14 +31,17 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'matabase',
-    'rest_framework',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "matabase",
+    "rest_framework",
+    "django_bootstrap5",
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -133,3 +136,7 @@ LOGIN_REDIRECT_URL = 'homePage'
 LOGOUT_REDIRECT_URL = 'homePage'
 
 # AUTH_USER_MODEL = "matabase.userprofile"
+
+# crispy_forms
+CRISPY_ALLOWD_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

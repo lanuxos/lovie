@@ -489,12 +489,12 @@ def Register(request):
         newUserProfile.save()
 
         whatsappConfig = {
-            "APP_ID": "918506733448186",
-            "APP_SECRET": "f791b3fcdf2e5f7ee2f88139ddbb1faa",
-            "RECIPIENT_WAID": "8562095671622",
+            "APP_ID": "<<APP_ID>>",
+            "APP_SECRET": "<<APP_SECRET>>",
+            "RECIPIENT_WAID": "+8562012345678",
             "VERSION": "v20.0",
-            "PHONE_NUMBER_ID": "350311111509676",
-            "ACCESS_TOKEN": "EAANDYIOSKZCoBO2wO5uZBwKvhJxtOSXC439hRYZApUX35kw2DjAVDmyLc4PPRfZBExQEKRX70xDnuDaFjc5lvafdPfrjpT0igX5njyPRqk01kMoGLEe29JMxVcKLNkfZBk1ZCeKy3PIreTq9CJXbw1mUXZBVN1YfZCIftUCIuFoSFmAwjdmZAuQky73YL3QZBPKzrzv87ZBvysCo85F3uk6xtpljZBnOuNEMPgvfJ3V5",
+            "PHONE_NUMBER_ID": "<<PHONE_NUMBER_ID>>",
+            "ACCESS_TOKEN": "<<TOKEN>>",
         }
 
         url = f"https://graph.facebook.com/{whatsappConfig['VERSION']}/{whatsappConfig['PHONE_NUMBER_ID']}/messages"
@@ -515,12 +515,12 @@ def Register(request):
 
 def Test(request):
 
-    url = "https://graph.facebook.com/v20.0/350311111509676/messages"
+    url = "https://graph.facebook.com/v20.0/<<PHONE_NUMBER_ID>>/messages"
 
     headers = CaseInsensitiveDict()
-    headers["Authorization"] = "Bearer EAANDYIOSKZCoBO7mTZBwP9fD1mboYt2Q7PNfFgxHOVOUzdgxmfK3A14Eij1tnSLkvVe054ywbkBt874ZCegshebjuajXrHXqA0nzB1QKaZA85WRVMS6OoERN7kbLrm4SLUOhV76eRTsEuEa1aeL84v04ZA89XY8uYZC2Li2tJPdgohiS6tW5E7UUN8kokZCwbvw29GAI1GIhApB9YcaZCVAEqrx5hQqFj6tLdVUZD"
+    headers["Authorization"] = "Bearer <<TOKEN>>"
     headers["Content-Type"] = "application/json"
-    data = '{ "messaging_product": "whatsapp", "to": "8562054495888", "type": "template", "template": { "name": "hello_world", "language": { "code": "en_US" } } }'
+    data = '{ "messaging_product": "whatsapp", "to": "8562012345678", "type": "template", "template": { "name": "hello_world", "language": { "code": "en_US" } } }'
 
     resp = requests.post(url, headers=headers, data=data)
 
@@ -531,6 +531,36 @@ def Test(request):
 ### class based view ###
 class CMatabaseCreateView(CreateView):  # create MODELNAME_form.html in template folder
     model = Matabase
+    fields = [
+        "title",
+        "year",
+        "status",
+    ]
+    success_url = "../list"
+
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context['footer'] = footer
+        return context
+
+class CMatabaseCreateViewWithBootstrap(CreateView):  # create MODELNAME_form.html in template folder
+    model = Matabase
+    fields = [
+        "title",
+        "year",
+        "status",
+    ]
+    success_url = "../list"
+    template_name = "matabase/django_bootstrap5.html"
+
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context['footer'] = footer
+        return context
+
+class CMatabaseCreateViewWithCrispy(CreateView):  # create MODELNAME_form.html in template folder
+    model = Matabase
+    template_name = "matabase/crispy_bootstrap5.html"
     fields = [
         "title",
         "year",
