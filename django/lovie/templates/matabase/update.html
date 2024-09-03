@@ -1,0 +1,37 @@
+{% extends 'matabase/base.html' %}
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }}" id=""><em>{{ message }}</em></div>
+{% endfor %}
+{% endif %}
+{% if request.user.is_staff %}
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="row justify-content-center">
+        <div class="col-sm-12 col-md-6 col-lg-5 mb-1">
+            <input type="text" class="form-control text text-center my-1" placeholder="Title" aria-label="Title"
+                aria-describedby="saveButton" name="titleField" id="titleField" {% if messages %}autofocus{% endif %} value="{{ movie.title }}">
+        </div>
+        <div class="col-sm-3 col-md-6 col-lg-2 mb-1">
+            <input type="text" class="form-control text text-center my-1" placeholder="Year" aria-label="Year"
+                aria-describedby="saveButton" name="yearField" id="yearField" value="{{ movie.year }}">
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-3 mb-1">
+            <select class="form-select my-1" aria-label="status" name="statusField" id="statusField">
+                <option value="d" {% if movie.status == 'd'%}selected{% endif %}>Download</option>
+                <option value="w" {% if movie.status == 'w'%}selected{% endif %}>Watched</option>
+                <option value="r" {% if movie.status == 'r'%}selected{% endif %}>Removed</option>
+            </select>
+        </div>
+        <div class="col-sm-3 col-md-6 col-lg-2 mb-1">
+            <button class="btn btn-outline-secondary form-control my-1" type="submit" name="saveButton" id="saveButton"
+                data-toggle="tooltip" title="Save record">
+                <i class="bi bi-floppy"></i>
+                Save
+            </button>
+        </div>
+    </div>
+</form>
+{% endif %}
+{% endblock content %}
