@@ -83,6 +83,7 @@ class UserProfile(models.Model):
     highestTheoryInstitution = models.CharField(max_length=100, blank=True, null=True, help_text="ສະຖາບັນທີ່ຈົບທິດສະດີສູງສຸດ", verbose_name="ສະຖາບັນທີ່ຈົບທິດສະດີສູງສຸດ")
     foreignLanguage = models.CharField(max_length=100, blank=True, null=True, help_text="ພາສາຕ່າງປະເທດ", verbose_name="ພາສາຕ່າງປະເທດ")
 
+    # for renamee the image's name using uuid randomly
     def pathAndName(instance, filename):
         upload_to = 'images/userProfile'
         ext = filename.split('.')[-1]
@@ -95,8 +96,9 @@ class UserProfile(models.Model):
         # return the whole path to the file
         return os.path.join(upload_to, filename)
 
-    photo = models.ImageField(upload_to=pathAndName, blank=True, null=True, help_text="ຮູບພາບ", verbose_name="ຮູບພາບ")
+    photo = models.ImageField(upload_to=pathAndName, default="default.png", blank=True, null=True, help_text="ຮູບພາບ", verbose_name="ຮູບພາບ")
 
+    # for resizeing the image before saving
     def save(self, *args, **kwargs):
         super().save()
         if self.photo:
@@ -105,6 +107,8 @@ class UserProfile(models.Model):
                 outputSize = (400, 300)
                 img.thumbnail(outputSize)
                 img.save(self.photo.path)
+
+    upload = models.FileField(upload_to="uploads/%Y-%m/", default="", blank=True, null=True, help_text="ອັບໂຫຼດໄຟລ໌")
 
     def __str__(self):
         title = ""

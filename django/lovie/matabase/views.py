@@ -1,4 +1,5 @@
 from typing import Any
+from wsgiref import headers
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
@@ -16,6 +17,9 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
+### whatsapp messenger ###
+import requests
+from requests.structures import CaseInsensitiveDict
 
 # db record count
 watched = Matabase.objects.filter(status='w').count()
@@ -478,12 +482,51 @@ def Register(request):
         newUser.username = formInfo.get('username')
         newUser.set_password(formInfo.get('password'))
         newUser.save()
+
+        newUserProfile = UserProfile()
+        newUserProfile.username = User.objects.get(username=formInfo.get('username'))
+        newUserProfile.tel = formInfo.get('tel')
+        newUserProfile.save()
+
+        whatsappConfig = {
+            "APP_ID": "918506733448186",
+            "APP_SECRET": "f791b3fcdf2e5f7ee2f88139ddbb1faa",
+            "RECIPIENT_WAID": "8562095671622",
+            "VERSION": "v20.0",
+            "PHONE_NUMBER_ID": "350311111509676",
+            "ACCESS_TOKEN": "EAANDYIOSKZCoBO2wO5uZBwKvhJxtOSXC439hRYZApUX35kw2DjAVDmyLc4PPRfZBExQEKRX70xDnuDaFjc5lvafdPfrjpT0igX5njyPRqk01kMoGLEe29JMxVcKLNkfZBk1ZCeKy3PIreTq9CJXbw1mUXZBVN1YfZCIftUCIuFoSFmAwjdmZAuQky73YL3QZBPKzrzv87ZBvysCo85F3uk6xtpljZBnOuNEMPgvfJ3V5",
+        }
+
+        url = f"https://graph.facebook.com/{whatsappConfig['VERSION']}/{whatsappConfig['PHONE_NUMBER_ID']}/messages"
+
+        headers = CaseInsensitiveDict()
+        headers["Authorization"] = f"Bearer {whatsappConfig['ACCESS_TOKEN']}"
+        headers["Content-Type"] = "application/json"
+        data = { "messaging_product": "whatsapp", "to": whatsappConfig['RECIPIENT_WAID'], "type": "template", "template": { "name": "hello_world", "language": { "code": "en_US" } } }
+
+        resp = requests.post(url, headers=headers, data=str(data))
+        
         user = authenticate(username=formInfo.get('username'), password=formInfo.get('password'))
         login(request, user)
         return redirect('homePage')
     context = {'footer': footer}
     return render(request, 'matabase/register.html', context=context)
 
+
+def Test(request):
+
+    url = "https://graph.facebook.com/v20.0/350311111509676/messages"
+
+    headers = CaseInsensitiveDict()
+    headers["Authorization"] = "Bearer EAANDYIOSKZCoBO7mTZBwP9fD1mboYt2Q7PNfFgxHOVOUzdgxmfK3A14Eij1tnSLkvVe054ywbkBt874ZCegshebjuajXrHXqA0nzB1QKaZA85WRVMS6OoERN7kbLrm4SLUOhV76eRTsEuEa1aeL84v04ZA89XY8uYZC2Li2tJPdgohiS6tW5E7UUN8kokZCwbvw29GAI1GIhApB9YcaZCVAEqrx5hQqFj6tLdVUZD"
+    headers["Content-Type"] = "application/json"
+    data = '{ "messaging_product": "whatsapp", "to": "8562054495888", "type": "template", "template": { "name": "hello_world", "language": { "code": "en_US" } } }'
+
+    resp = requests.post(url, headers=headers, data=data)
+
+    print(resp.status_code)
+
+    return render(request, 'matabase/test.html')
 
 ### class based view ###
 class CMatabaseCreateView(CreateView):  # create MODELNAME_form.html in template folder
@@ -507,6 +550,13 @@ class CMatabaseProfileView(
 
     def get_queryset(self):
         return UserProfile.objects.filter(username=self.request.user).first()
+
+
+class CMatabaseProfileDetailView(DetailView):
+    template_name = "matabase/profile_detail.html"
+    def get_object(self):
+        object = UserProfile.objects.filter(username=self.request.user).first()
+        return object
 
 
 class CMatabaseListView(ListView):  # create MODELNAME_list.html in template folder

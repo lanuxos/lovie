@@ -16,6 +16,13 @@ from django.contrib.auth.admin import UserAdmin
 #         "lastname"
 #     )
 #     ordering = ('firstname')
+#     def upload_link(self, obj):
+#         if obj.file:
+#             return f"<a href='{obj.file.url}' download>Download</a>"
+#         else:
+#             return "No attachment file"
+#     upload_link.allow_tags = True
+#     upload_link.short_description = "File Download"
 
 class MatabaseAdmin(admin.ModelAdmin):
     list_filter = [
