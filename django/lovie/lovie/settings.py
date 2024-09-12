@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "matabase",
     "rest_framework",
-    "django_bootstrap5",
     "crispy_forms",
     "crispy_bootstrap5",
 ]
