@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="card-footer text-end">
-                Requested by: {{ requestUser }}
+                Requested by: {{ requestUser }} [{{ requestRemoteAddress}}] [{{ httpXForwaredFor }}]
                 <a href="{% url 'CMatabaseUpdateView' object.pk %}"><i class="bi bi-pencil">Update</i></a>
                 <a href="{% url 'CMatabaseDeleteView' object.pk %}"><i class="bi bi-trash">Delete</i></a>
             </div>

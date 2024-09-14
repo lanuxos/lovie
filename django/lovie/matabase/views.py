@@ -646,6 +646,7 @@ class CMatabaseDetailView(
         context["totalMovie"] = totalMovie
         context["requestUser"] = requestUser
         context['footer'] = footer
+        context['remoteAddress'] = self.request.META.get('REMOTE_ADDR')
         return context
 
 
